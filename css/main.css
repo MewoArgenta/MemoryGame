@@ -1,0 +1,60 @@
+@charset "UTF-8";
+
+body {
+	background-color: #00bfff;
+	margin: 0;
+	height: 100vh;
+}
+
+.container {
+	margin: auto;
+}
+
+header {
+	background-color: #b3ecff;
+	margin: 0;
+	height: 40px;
+	width: 100%;
+	display: flex;
+  	flex-direction: row;
+ 	flex-wrap: wrap;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+  height: 75px;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  width: 75px;
+}
+.external_left {
+	margin-left: auto;
+}
+
+.external_right {
+	margin-right: auto;
+}
+
+.guess_box {
+	height:60%;
+	width: 60%;
+	background-color: #00394d;
+	margin: auto;
+}
+
+footer {
+	background-color: #b3ecff;
+	margin: 0;
+	height: 400px;
+	width: 100%;
+	display: flex;
+  	flex-direction: row;
+ 	flex-wrap: wrap;
+}
