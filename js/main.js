@@ -16,7 +16,7 @@ function calculateNumberOfGuesses () {
 }
 
 /*this is the div where the box is to be clicked is in, so the player can guess*/
-let guessBox = document.getElementsByClassName('guess_box') [0];
+let guessBox = document.getElementsByClassName('guess_box')[0];
 
 /*places where the image should come in*/
 let place1 = document.getElementsByClassName('guess_box') [0];
@@ -106,16 +106,33 @@ function randomizeNumbers() {
 
 let numbersRandomArray = randomizeNumbers();
 
-place1.addEventListener('click', function() {
-	place1.appendChild(img1);
-	clickCounter ++;
-})
+/*for (i = 0; i <= 15; i++) {
+	place1.addEventListener('click', function() {
+		for (j = 0; j <= 7; j++) {
+			k = numbersRandomArray[j];
+			place1.appendChild(img1);
+			clickCounter ++;
+			}
+		}
+	)
+}*/
 
+/*place1.addEventListener('click', function() {
+	place1.appendChild(img1);
+	} 
+)*/
+for (i = 0; i <= 15; i++) {
+	let guessBoxes = document.getElementsByClassName('guess_box');
+	guessBoxes[i].addEventListener('click', function() {
+	guessBoxes[0].appendChild(img1);
+	}
+	)
+}
 
 function widthCalculation() {
 	let width = guessBox.offsetWidth;
 	return width;
-};
+}
 
 function heightCalculation() {
 	let height = guessBox.offsetHeight;
