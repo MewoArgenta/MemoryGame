@@ -1,7 +1,7 @@
 @charset "UTF-8";
 
 body {
-	background-color: #00bfff;
+	background-color: #b3ecff;
 	margin: 0;
 	height: 100vh;
 }
@@ -33,6 +33,7 @@ header {
   flex-direction: column;
   flex-wrap: wrap;
   width: 75px;
+  background-color: #00bfff;
 }
 .external_left {
 	margin-left: auto;
