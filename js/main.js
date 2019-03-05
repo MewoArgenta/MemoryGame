@@ -36,6 +36,7 @@ let place14 = document.getElementsByClassName('guess_box') [13];
 let place15 = document.getElementsByClassName('guess_box') [14];
 let place16 = document.getElementsByClassName('guess_box') [15];
 
+
 const img1 = new Image();
 img1.src = "../img/afghanistan.png";
 img1.alt = "afghanistan";
@@ -84,6 +85,9 @@ img8.alt = "panama";
 img8.width = widthCalculation();
 img8.height = heightCalculation();
 
+
+let imagesArray = [img1, img2, img3, img4, img5, img6, img7, img8];
+
 /*function to declare which element will be pulled from numbersOrdened*/
 function randomNumber() {
 	let randomNumber;
@@ -121,10 +125,12 @@ let numbersRandomArray = randomizeNumbers();
 	place1.appendChild(img1);
 	} 
 )*/
+
+let guessBoxes = document.getElementsByClassName('guess_box');
 for (i = 0; i <= 15; i++) {
-	let guessBoxes = document.getElementsByClassName('guess_box');
+	let image = imagesArray[i];
 	guessBoxes[i].addEventListener('click', function() {
-	guessBoxes[0].appendChild(img1);
+	this.appendChild(image);
 	}
 	)
 }
