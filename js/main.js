@@ -87,51 +87,63 @@ img8.height = heightCalculation();
 
 
 let imagesArray = [img1, img2, img3, img4, img5, img6, img7, img8];
+/*we need this array two times because every images has to be used two times*/
+let imagesArrayDouble = imagesArray.concat(imagesArray);
 
-/*function to declare which element will be pulled from numbersOrdened*/
+/*function to declare which element will be pulled from imagesArrayDouble*/
 function randomNumber() {
 	let randomNumber;
-	randomNumber = Math.floor(Math.random()*numbersOrdened.length);
+	randomNumber = Math.floor(Math.random()*imagesArrayDouble.length);
 	return randomNumber;
 }
 
-/*this array represent all the images, they are put in twice because each image has to be twice in the game*/
-let numbersOrdened = [1, 1, 2 ,2 ,3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8];
-
 /*returns an array of the numbersOrdened but in a random order*/
-function randomizeNumbers() {
-	let numbersRandomArray = [];
+function randomizeImagesArray() {
+	let imagesRandomArray = [];
 	for (i = 1; i <= 16; i++){
-	let randomRemovedNumber = numbersOrdened.splice(randomNumber(),1);
-	numbersRandomArray.push(randomRemovedNumber[0]);
+	let randomRemovedImage = imagesArrayDouble.splice(randomNumber(),1);
+	imagesRandomArray.push(randomRemovedImage[0]);
 	}
-	return numbersRandomArray;
+	return imagesRandomArray;
 }
 
-let numbersRandomArray = randomizeNumbers();
-
-/*for (i = 0; i <= 15; i++) {
-	place1.addEventListener('click', function() {
-		for (j = 0; j <= 7; j++) {
-			k = numbersRandomArray[j];
-			place1.appendChild(img1);
-			clickCounter ++;
-			}
-		}
-	)
-}*/
-
-/*place1.addEventListener('click', function() {
-	place1.appendChild(img1);
-	} 
-)*/
+let imagesRandomArray = randomizeImagesArray();
+let hidden = document.getElementsByClassName('hidden')[0];
 
 let guessBoxes = document.getElementsByClassName('guess_box');
+
+
+ 
+
 for (i = 0; i <= 15; i++) {
-	let image = imagesArray[i];
+	let image = imagesRandomArray[i].cloneNode(false);
+	image.className = "shown";
+	let discoveredImage;
 	guessBoxes[i].addEventListener('click', function() {
-	this.appendChild(image);
-	}
+		this.appendChild(image);
+		clickCounter++;
+		if (clickCounter%2 === 0) {
+			if (image !== discoveredImage) {
+				console.log('wrong');
+				console.log(guessedBox[0]);
+				console.log(guessedBox[1]);
+				hidden.appendChild(guessedBox[0]);
+				console.log(guessedBox[0]);
+				console.log(guessedBox[1]);
+				hidden.appendChild(guessedBox[0]);
+				console.log(guessedBox[0]);
+				console.log(guessedBox[1]);
+				guessedBox[0].classList.remove("shown");
+				guessedBox[0].classList.remove("shown");
+			}
+			if (image === discoveredImage) {
+				console.log('right')
+			}
+		}
+		discoveredImage = image;
+		guessedBox = document.getElementsByClassName('shown');
+		}		
+
 	)
 }
 

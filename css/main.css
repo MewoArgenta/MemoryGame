@@ -50,6 +50,10 @@ header {
 	margin: auto;
 }
 
+.hidden {
+	display: none;
+}
+
 footer {
 	background-color: #b3ecff;
 	margin: 0;
