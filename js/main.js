@@ -111,37 +111,44 @@ let imagesRandomArray = randomizeImagesArray();
 let hidden = document.getElementsByClassName('hidden')[0];
 
 let guessBoxes = document.getElementsByClassName('guess_box');
+let discoveredImage ='not yet clicked';
+let discoveredImageOject;
 
 
  
-
+/*to be done: make it impossible to click too quickly, or, work with callback*/
 for (i = 0; i <= 15; i++) {
 	let image = imagesRandomArray[i].cloneNode(false);
 	image.className = "shown";
-	let discoveredImage;
-	guessBoxes[i].addEventListener('click', function() {
+		guessBoxes[i].addEventListener('click', function() {
 		this.appendChild(image);
 		clickCounter++;
+		console.log(discoveredImage);
+		console.log(image.alt);
 		if (clickCounter%2 === 0) {
-			if (image !== discoveredImage) {
+			if (image.alt != discoveredImage) {
 				console.log('wrong');
-				console.log(guessedBox[0]);
-				console.log(guessedBox[1]);
-				hidden.appendChild(guessedBox[0]);
-				console.log(guessedBox[0]);
-				console.log(guessedBox[1]);
-				hidden.appendChild(guessedBox[0]);
-				console.log(guessedBox[0]);
-				console.log(guessedBox[1]);
-				guessedBox[0].classList.remove("shown");
-				guessedBox[0].classList.remove("shown");
+				discoveredImage = 'not yet clicked';
+				setTimeout(function() {
+					hidden.appendChild(guessedBox[0]);
+					hidden.appendChild(guessedBox[0]);
+				}, 1500);
 			}
-			if (image === discoveredImage) {
-				console.log('right')
+			if (image.alt == discoveredImage) {
+				console.log('right');
+				discoveredImageOject.classList.remove("shown");
+				image.classList.remove("shown");
+				discoveredImage = 'not yet clicked';
 			}
+			
 		}
-		discoveredImage = image;
-		guessedBox = document.getElementsByClassName('shown');
+		else {
+		function setDiscoveredImage() {discoveredImage = image.alt;
+			discoveredImageOject = image};
+		setDiscoveredImage();
+		console.log(discoveredImage);
+		}
+		let guessedBox = document.getElementsByClassName('shown');
 		}		
 
 	)
