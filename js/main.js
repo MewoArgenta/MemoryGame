@@ -4,6 +4,8 @@ let clickCounter = 0;
 /*number of times player has guessed*/
 let numberOfGuesses = calculateNumberOfGuesses();
 
+let toggle = true;
+
 /*function to calculate the number of times player has guessed*/
 function calculateNumberOfGuesses () {
 	let numberOfGuesses;
@@ -14,6 +16,7 @@ function calculateNumberOfGuesses () {
 	}
 	return numberOfGuesses;
 }
+
 
 /*this is the div where the box is to be clicked is in, so the player can guess*/
 let guessBox = document.getElementsByClassName('guess_box')[0];
@@ -121,32 +124,29 @@ for (i = 0; i <= 15; i++) {
 	let image = imagesRandomArray[i].cloneNode(false);
 	image.className = "shown";
 		guessBoxes[i].addEventListener('click', function() {
+			if (toggle === false) {return;}
 		this.appendChild(image);
 		clickCounter++;
-		console.log(discoveredImage);
-		console.log(image.alt);
 		if (clickCounter%2 === 0) {
+		toggle = false;
 			if (image.alt != discoveredImage) {
-				console.log('wrong');
 				discoveredImage = 'not yet clicked';
 				setTimeout(function() {
 					hidden.appendChild(guessedBox[0]);
 					hidden.appendChild(guessedBox[0]);
-				}, 1500);
+				}, 1000);
 			}
 			if (image.alt == discoveredImage) {
-				console.log('right');
 				discoveredImageOject.classList.remove("shown");
 				image.classList.remove("shown");
 				discoveredImage = 'not yet clicked';
 			}
-			
+		setTimeout(function() {toggle = true;},1200);	
 		}
 		else {
 		function setDiscoveredImage() {discoveredImage = image.alt;
 			discoveredImageOject = image};
 		setDiscoveredImage();
-		console.log(discoveredImage);
 		}
 		let guessedBox = document.getElementsByClassName('shown');
 		}		
