@@ -6,11 +6,19 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Memory Game</title>
 <link href="../css/main.css" rel="stylesheet">
+<link href="../css/timer.css" rel="stylesheet">
+<link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.0/css/all.css' integrity='sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ' crossorigin='anonymous'>
+<link href="https://afeld.github.io/emoji-css/emoji.css" rel="stylesheet">
 </head>
 <body>
 	<div class="container">
 		<header>
-
+				<span class="counter"">0 moves</span>
+				<!-- in stead of using the 3 stars I decided to change the smiley to indicate if you are doing well -->
+				<i class="em em-smiley good" alt="good"></i>
+				<i class="em em-neutral_face neutral" alt="neutral"></i>
+				<i class="em em em-tired_face bad" alt="bad"></i>
+				<i class="fas fa-sync-alt glyphicon" alt="refresh"></i>
 		</header>
 		
 			<div class="row">
@@ -68,13 +76,55 @@
 				</div>		
 				<div class="column external_right">
 					<div class="guess_box place16"></div>	
-				</div>
-				
+				</div>				
 			</div>
 			<div class="hidden"> </div>
 
 		<footer>
-			
+<!-- 		source of the timer is https://codepen.io/tameraydin/pen/rfHol -->
+			<div class="important timer">
+				<input type="checkbox" id="button1" checked>
+				<div class="digit dp100000 d6">
+				    <div class="particle top"></div>
+				    <div class="particle top right"></div>
+				    <div class="particle top left"></div>
+				    <div class="particle middle"></div>
+				    <div class="particle bottom right"></div>
+				    <div class="particle bottom left"></div>
+				    <div class="particle bottom"></div>
+				</div>
+				<div class="digit dp10000">
+				    <div class="particle top"></div>
+				    <div class="particle top right"></div>
+				    <div class="particle top left"></div>
+				    <div class="particle middle"></div>
+				    <div class="particle bottom right"></div>
+				    <div class="particle bottom left"></div>
+				    <div class="particle bottom"></div>
+				</div>
+				<div class="separator">
+				    <div class="dot top"></div>
+				    <div class="dot bottom"></div>
+				</div>
+				<div class="digit dp1000 d6">
+				    <div class="particle top"></div>
+				    <div class="particle top right"></div>
+				    <div class="particle top left"></div>
+				    <div class="particle middle"></div>
+				    <div class="particle bottom right"></div>
+				    <div class="particle bottom left"></div>
+				    <div class="particle bottom"></div>
+				</div>
+				<div class="digit dp100">
+				    <div class="particle top"></div>
+				    <div class="particle top right"></div>
+				    <div class="particle top left"></div>
+				    <div class="particle middle"></div>
+				    <div class="particle bottom right"></div>
+				    <div class="particle bottom left"></div>
+				    <div class="particle bottom"></div>
+				</div>
+			</div>
 		</footer>
 	</div>
 	<script src="../js/main.js"></script>

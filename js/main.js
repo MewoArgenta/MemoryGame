@@ -2,42 +2,57 @@
 let clickCounter = 0;
 
 /*number of times player has guessed*/
-let numberOfGuesses = calculateNumberOfGuesses();
+let numberOfGuesses = 0;
 
-let toggle = true;
+function getNumberOfCorrectGuesses() { 
+	let numberOfCorrectGuesses = document.getElementsByClassName('discovered').length/2;
+	return numberOfCorrectGuesses;
+};
 
-/*function to calculate the number of times player has guessed*/
-function calculateNumberOfGuesses () {
-	let numberOfGuesses;
-	if (clickCounter%2 === 0) {
-		numberOfGuesses = clickCounter/2;
-	} else {
-		numberOfGuesses = Math.floor(clickCounter/2);
-	}
-	return numberOfGuesses;
+/*to refresh the page so the player can 're'begin*/
+let refreshSymbol = document.getElementsByClassName('glyphicon')[0];
+
+function reloadPage() { location.reload();}
+
+refreshSymbol.addEventListener('click', function() {
+	reloadPage();
 }
+)
+
+/*the array that contains the stars (smileys in my case) [0]= good [1] = neutral [2] = bad*/
+let smileys = document.getElementsByClassName('em');
+function good(){
+	smileys[0].style.display = "flex";
+};
+function neutral(){
+	smileys[0].style.display = "none";
+	smileys[1].style.display = "flex";
+};
+function bad(){
+	smileys[1].style.display = "none";
+	smileys[2].style.display = "flex";
+};
+function smileysCalculation() {
+	if (numberOfGuesses>14) { neutral();
+	}
+	if (numberOfGuesses>24) { bad();
+	}
+}
+
+/*we start with 3 stars as indicated in the rubric*/
+let startSmiley = good();
+
+/*blocks the game when false. 
+The game goes in this blocking state when the code for revealing the second box is running.
+ It also blocks when you click on an already revealed box*/
+let toggle = true;
 
 
 /*this is the div where the box is to be clicked is in, so the player can guess*/
 let guessBox = document.getElementsByClassName('guess_box')[0];
 
-/*places where the image should come in*/
-let place1 = document.getElementsByClassName('guess_box') [0];
-let place2 = document.getElementsByClassName('guess_box') [1];
-let place3 = document.getElementsByClassName('guess_box') [2];
-let place4 = document.getElementsByClassName('guess_box') [3];
-let place5 = document.getElementsByClassName('guess_box') [4];
-let place6 = document.getElementsByClassName('guess_box') [5];
-let place7 = document.getElementsByClassName('guess_box') [6];
-let place8 = document.getElementsByClassName('guess_box') [7];
-let place9 = document.getElementsByClassName('guess_box') [8];
-let place10 = document.getElementsByClassName('guess_box') [9];
-let place11 = document.getElementsByClassName('guess_box') [10];
-let place12 = document.getElementsByClassName('guess_box') [11];
-let place13 = document.getElementsByClassName('guess_box') [12];
-let place14 = document.getElementsByClassName('guess_box') [13];
-let place15 = document.getElementsByClassName('guess_box') [14];
-let place16 = document.getElementsByClassName('guess_box') [15];
+let counter = document.getElementsByClassName('counter')[0];
+
 
 
 const img1 = new Image();
@@ -113,8 +128,11 @@ function randomizeImagesArray() {
 let imagesRandomArray = randomizeImagesArray();
 let hidden = document.getElementsByClassName('hidden')[0];
 
+/*the places to click on*/
 let guessBoxes = document.getElementsByClassName('guess_box');
+/*to store the name of the image we are trying to compare/find */
 let discoveredImage ='not yet clicked';
+/*to store the first clicked image in*/
 let discoveredImageOject;
 
 
@@ -124,32 +142,52 @@ for (i = 0; i <= 15; i++) {
 	let image = imagesRandomArray[i].cloneNode(false);
 	image.className = "shown";
 		guessBoxes[i].addEventListener('click', function() {
+			let checkForCheaters = this.getElementsByClassName('discovered');
+			while (checkForCheaters.length === 1) {return};
 			if (toggle === false) {return;}
 		this.appendChild(image);
+
 		clickCounter++;
 		if (clickCounter%2 === 0) {
+		/*block the ability to view other images*/
 		toggle = false;
+		numberOfGuesses++;
+		/*show the meter who shows you how succesfull you are*/
+		smileysCalculation();
+		/*guess is wrong*/
 			if (image.alt != discoveredImage) {
 				discoveredImage = 'not yet clicked';
 				setTimeout(function() {
+					/*hide the images again*/
 					hidden.appendChild(guessedBox[0]);
 					hidden.appendChild(guessedBox[0]);
-				}, 1000);
+				}, 800);
 			}
+			/*guess is right*/
 			if (image.alt == discoveredImage) {
+				/*remove the first image that was clicked from the shown list, so that it won't be hidden*/
 				discoveredImageOject.classList.remove("shown");
+				discoveredImageOject.className = "discovered";
+				/*remove the last image that was clicked from the shown list*/
 				image.classList.remove("shown");
+				image.className = "discovered";
 				discoveredImage = 'not yet clicked';
 			}
-		setTimeout(function() {toggle = true;},1200);	
+		setTimeout(function() {
+			/*release ability to view images again*/
+			toggle = true;},900);	
 		}
 		else {
+			/*to be able to compare the second clicked image witht he first*/
 		function setDiscoveredImage() {discoveredImage = image.alt;
 			discoveredImageOject = image};
 		setDiscoveredImage();
 		}
 		let guessedBox = document.getElementsByClassName('shown');
-		}		
+		/*show the number of guesses*/
+		counter.textContent = numberOfGuesses + ' moves';
+		}	
+
 
 	)
 }
