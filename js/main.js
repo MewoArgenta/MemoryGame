@@ -1,3 +1,19 @@
+let timeStarted = getTime();
+let timeFinished;
+let timeCounted;
+
+function calculateTimeCounted() { let difference = (timeFinished-timeStarted)/100;
+	difference = Math.round(difference)/10;
+	return difference;
+}
+
+/*calculates time in millisecondsmidnight, January 1, 1970 */
+function getTime() {
+  let d = new Date();
+  let n = d.getTime();
+  return n;
+}
+
 /*number of times player has clicked on the guessBox*/
 let clickCounter = 0;
 
@@ -186,6 +202,14 @@ for (i = 0; i <= 15; i++) {
 		let guessedBox = document.getElementsByClassName('shown');
 		/*show the number of guesses*/
 		counter.textContent = numberOfGuesses + ' moves';
+		if (checkIfGameFinished()) {
+			 /*pause the display of the timer who was built in css*/
+			 pauseTimer();
+			 /*store the counted time in js*/
+			 timeFinished = getTime();
+			 timeCounted = calculateTimeCounted();
+			 console.log(timeCounted);
+		}
 		}	
 
 
@@ -200,4 +224,22 @@ function widthCalculation() {
 function heightCalculation() {
 	let height = guessBox.offsetHeight;
 	return height;
+}
+
+let pauseTimerButton = document.getElementsByClassName('pause')[0];
+function pauseTimer() { 
+		pauseTimerButton.checked = false; 
+		/*when checked is true the timer continues*/
+}
+
+function checkIfGameFinished() {
+	let numberOfCorrectGuesses = getNumberOfCorrectGuesses();
+	let gameFinished;
+	if (numberOfCorrectGuesses === 8) {
+		gameFinished = true;
+	}
+	if (numberOfGuesses < 8) {
+		gameFinished = false;
+	}
+	return gameFinished;
 }
