@@ -208,7 +208,8 @@ for (i = 0; i <= 15; i++) {
 			 /*store the counted time in js*/
 			 timeFinished = getTime();
 			 timeCounted = calculateTimeCounted();
-			 console.log(timeCounted);
+			 setMovesAndSecondsHtml();
+			 popUp.style.display = "flex";
 		}
 		}	
 
@@ -242,4 +243,16 @@ function checkIfGameFinished() {
 		gameFinished = false;
 	}
 	return gameFinished;
+}
+
+let popUp = document.getElementsByClassName('finished_pop_up')[0];
+
+
+function setMovesAndSecondsHtml() {
+	let movesLi = document.getElementsByClassName('finished_moves')[0];
+	let secondsLi = document.getElementsByClassName('finished_seconds')[0];
+	movesLi.textContent = numberOfGuesses + ' moves';
+	secondsLi.textContent = timeCounted + ' seconds';
+/*	localStorage.setItem('myCat', 'Tom');
+	localStorage.setItem('myCat', 'Tom');*/
 }
