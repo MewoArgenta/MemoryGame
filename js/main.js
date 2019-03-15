@@ -1,6 +1,7 @@
 let timeStarted = getTime();
 let timeFinished;
 let timeCounted;
+let theGuessWasRight = true;
 
 function calculateTimeCounted() { let difference = (timeFinished-timeStarted)/100;
 	difference = Math.round(difference)/10;
@@ -62,6 +63,8 @@ let startSmiley = good();
 The game goes in this blocking state when the code for revealing the second box is running.
  It also blocks when you click on an already revealed box*/
 let toggle = true;
+function setToggleTrue() {toggle =true};
+function setToggleFalse() {toggle = false};
 
 
 /*this is the div where the box is to be clicked is in, so the player can guess*/
@@ -157,30 +160,29 @@ let discoveredImageOject;
 for (i = 0; i <= 15; i++) {
 	let image = imagesRandomArray[i].cloneNode(false);
 	image.className = "shown";
-		guessBoxes[i].addEventListener('click', function() {
-			let checkForCheaters = this.getElementsByClassName('discovered');
-			while (checkForCheaters.length === 1) {return};
-			if (toggle === false) {return;}
-		this.appendChild(image);
-
+	let thisBox = guessBoxes[i];
+	thisBox.addEventListener('click', function() {
+		let checkForCheaters = thisBox.getElementsByClassName('discovered');
+		while (checkForCheaters.length === 1) {return};
+		if (toggle === false) {return;}
+		
 		clickCounter++;
 		if (clickCounter%2 === 0) {
 		/*block the ability to view other images*/
-		toggle = false;
+		setToggleFalse();
 		numberOfGuesses++;
 		/*show the meter who shows you how succesfull you are*/
 		smileysCalculation();
 		/*guess is wrong*/
 			if (image.alt != discoveredImage) {
+				thisBox.appendChild(image);
 				discoveredImage = 'not yet clicked';
-				setTimeout(function() {
-					/*hide the images again*/
-					hidden.appendChild(guessedBox[0]);
-					hidden.appendChild(guessedBox[0]);
-				}, 800);
+				theGuessWasRight = false;
 			}
+
 			/*guess is right*/
 			if (image.alt == discoveredImage) {
+				thisBox.appendChild(image);
 				/*remove the first image that was clicked from the shown list, so that it won't be hidden*/
 				discoveredImageOject.classList.remove("shown");
 				discoveredImageOject.className = "discovered";
@@ -188,18 +190,29 @@ for (i = 0; i <= 15; i++) {
 				image.classList.remove("shown");
 				image.className = "discovered";
 				discoveredImage = 'not yet clicked';
+				theGuessWasRight = true;
 			}
-		setTimeout(function() {
 			/*release ability to view images again*/
-			toggle = true;},900);	
+			setToggleTrue();
 		}
-		else {
+		if (clickCounter%2 !== 0) {
+			
+			if (!theGuessWasRight && clickCounter > 0) {
+			console.log('Im trying to hide shown');
+			/*hide the shown images*/
+			hideShown(callback);
+			}
+			else {callback()}
+			function callback(){
+				thisBox.appendChild(image);
+				setDiscoveredImage();
+			}
+			
 			/*to be able to compare the second clicked image witht he first*/
 		function setDiscoveredImage() {discoveredImage = image.alt;
 			discoveredImageOject = image};
-		setDiscoveredImage();
-		}
-		let guessedBox = document.getElementsByClassName('shown');
+				}
+
 		/*show the number of guesses*/
 		counter.textContent = numberOfGuesses + ' moves';
 		if (checkIfGameFinished()) {
@@ -253,6 +266,13 @@ function setMovesAndSecondsHtml() {
 	let secondsLi = document.getElementsByClassName('finished_seconds')[0];
 	movesLi.textContent = numberOfGuesses + ' moves';
 	secondsLi.textContent = timeCounted + ' seconds';
-/*	localStorage.setItem('myCat', 'Tom');
+/*	localStorage.setItem(userName[]i, );
 	localStorage.setItem('myCat', 'Tom');*/
+}
+let guessedBox = document.getElementsByClassName('shown');
+/*this function should be called when the images have to be hidden*/
+function hideShown(callback) {
+	hidden.appendChild(guessedBox[0]);
+	hidden.appendChild(guessedBox[0]);
+	callback();
 }
