@@ -27,7 +27,10 @@ function getNumberOfCorrectGuesses() {
 };
 
 /*to refresh the page so the player can 're'begin*/
+//this is the glyphicon in the header
 let refreshSymbol = document.getElementsByClassName('glyphicon')[0];
+//this is the glyphicon in the pop up when the player finishes the game
+let refreshSymbol2 = document.getElementsByClassName('glyphicon2')[0];
 
 function reloadPage() { location.reload();}
 
@@ -35,6 +38,11 @@ refreshSymbol.addEventListener('click', function() {
 	reloadPage();
 }
 )
+refreshSymbol2.addEventListener('click', function() {
+	reloadPage();
+}
+)
+
 
 /*the array that contains the stars (smileys in my case) [0]= good [1] = neutral [2] = bad*/
 let smileys = document.getElementsByClassName('em');
@@ -153,6 +161,7 @@ let guessBoxes = document.getElementsByClassName('guess_box');
 let discoveredImage ='not yet clicked';
 /*to store the first clicked image in*/
 let discoveredImageOject;
+let lastBox = 'not set yet';
 
 
  
@@ -168,6 +177,7 @@ for (i = 0; i <= 15; i++) {
 		
 		clickCounter++;
 		if (clickCounter%2 === 0) {
+			if (thisBox === lastBox) {clickCounter--; return};
 		/*block the ability to view other images*/
 		setToggleFalse();
 		numberOfGuesses++;
@@ -196,13 +206,14 @@ for (i = 0; i <= 15; i++) {
 			setToggleTrue();
 		}
 		if (clickCounter%2 !== 0) {
-			
+			lastBox = thisBox;
+
 			if (!theGuessWasRight && clickCounter > 0) {
-			console.log('Im trying to hide shown');
 			/*hide the shown images*/
 			hideShown(callback);
 			}
 			else {callback()}
+
 			function callback(){
 				thisBox.appendChild(image);
 				setDiscoveredImage();
@@ -223,7 +234,8 @@ for (i = 0; i <= 15; i++) {
 			 timeCounted = calculateTimeCounted();
 			 setMovesAndSecondsHtml();
 			 popUp.style.display = "flex";
-		}
+			 //this makes the refresh button in the finished pop up work.
+			 }
 		}	
 
 
@@ -251,6 +263,7 @@ function checkIfGameFinished() {
 	let gameFinished;
 	if (numberOfCorrectGuesses === 8) {
 		gameFinished = true;
+
 	}
 	if (numberOfGuesses < 8) {
 		gameFinished = false;
@@ -266,6 +279,7 @@ function setMovesAndSecondsHtml() {
 	let secondsLi = document.getElementsByClassName('finished_seconds')[0];
 	movesLi.textContent = numberOfGuesses + ' moves';
 	secondsLi.textContent = timeCounted + ' seconds';
+
 /*	localStorage.setItem(userName[]i, );
 	localStorage.setItem('myCat', 'Tom');*/
 }
