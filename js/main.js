@@ -234,7 +234,7 @@ for (i = 0; i <= 15; i++) {
 			 timeCounted = calculateTimeCounted();
 			 setMovesAndSecondsHtml();
 			 popUp.style.display = "flex";
-			 //this makes the refresh button in the finished pop up work.
+			 setCacheInfo();
 			 }
 		}	
 
@@ -279,14 +279,60 @@ function setMovesAndSecondsHtml() {
 	let secondsLi = document.getElementsByClassName('finished_seconds')[0];
 	movesLi.textContent = numberOfGuesses + ' moves';
 	secondsLi.textContent = timeCounted + ' seconds';
-
-/*	localStorage.setItem(userName[]i, );
-	localStorage.setItem('myCat', 'Tom');*/
 }
+
 let guessedBox = document.getElementsByClassName('shown');
 /*this function should be called when the images have to be hidden*/
 function hideShown(callback) {
 	hidden.appendChild(guessedBox[0]);
 	hidden.appendChild(guessedBox[0]);
 	callback();
+}
+
+/* this function is used to override recordgames variables when current play beats the record registered in the cache or initiates these variables when there is no game in the cache*/
+function setCacheInfo() {
+	if (!recordMoves) {
+		recordTime = timeCounted;
+		recordMoves = numberOfGuesses;
+	}
+	if (recordMoves) {
+		if (timeCounted < recordTime) {
+			recordTime = timeCounted;
+		}
+		if (numberOfGuesses < recordMoves) {
+			recordMoves = numberOfGuesses;
+		}
+	}
+	saveCacheInfo();
+}
+
+let recordMoves;
+let recordTime;
+getCacheInfo();
+
+
+/*stores the record variables in the cache*/
+function saveCacheInfo() {
+	localStorage.setItem('recordMoves',recordMoves);
+	localStorage.setItem('recordTime', recordTime);
+}
+
+/*retrieves the record variables from the cache*/
+function getCacheInfo() {
+	recordMoves = localStorage.getItem('recordMoves');
+	recordTime = localStorage.getItem('recordTime');
+}
+
+/*only display the record if the record exists which won't be the case if cache is deleted or if you play for the first time*/
+if (recordMoves){
+	displayRecord();
+}
+
+function displayRecord() {
+	let spanRecordTime = document.getElementsByClassName('record_time')[0];
+	let spanRecordMoves = document.getElementsByClassName('record_moves')[0];
+	let rowRecord = document.getElementsByClassName('record')[0];
+	spanRecordTime.textContent = 'Record time: ' + recordTime + ' seconds';
+	spanRecordMoves.textContent = 'Record moves: ' + recordMoves + ' moves';
+	rowRecord.style.display  = 'flex';
 }

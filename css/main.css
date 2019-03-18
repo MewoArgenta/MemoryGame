@@ -61,9 +61,9 @@ header {
 
 footer {
 	background-color: #000066;
-	margin: 0;
-	height: 400px;
-	width: 100%;
+	margin: auto;
+	height: 180px;
+	width: 300px;
 	display: flex;
   	flex-direction: row;
  	flex-wrap: wrap;
@@ -110,7 +110,7 @@ footer {
 
 .important.timer {
 	margin: auto;
-	margin-top: 70px;
+	margin-top: 10px;
 }
 
 .finished_pop_up {
@@ -148,4 +148,12 @@ footer {
 
 .centered_box {
 	display: flex;
+}
+
+.record {
+	 	justify-content: space-around;
+	 	font-size: 20px;
+    	padding-top: 20px;
+    	color: #e6b800;
+		font-weight: 900;
 }
