@@ -21,16 +21,16 @@ let clickCounter = 0;
 /*number of times player has guessed*/
 let numberOfGuesses = 0;
 
-function getNumberOfCorrectGuesses() { 
+function getNumberOfCorrectGuesses() {
 	let numberOfCorrectGuesses = document.getElementsByClassName('discovered').length/2;
 	return numberOfCorrectGuesses;
 };
 
 /*to refresh the page so the player can 're'begin*/
 //this is the glyphicon in the header
-let refreshSymbol = document.getElementsByClassName('glyphicon')[0];
+const refreshSymbol = document.getElementsByClassName('glyphicon')[0];
 //this is the glyphicon in the pop up when the player finishes the game
-let refreshSymbol2 = document.getElementsByClassName('glyphicon2')[0];
+const refreshSymbol2 = document.getElementsByClassName('glyphicon2')[0];
 
 function reloadPage() { location.reload();}
 
@@ -67,7 +67,7 @@ function smileysCalculation() {
 /*we start with 3 stars as indicated in the rubric*/
 let startSmiley = good();
 
-/*blocks the game when false. 
+/*blocks the game when false.
 The game goes in this blocking state when the code for revealing the second box is running.
  It also blocks when you click on an already revealed box*/
 let toggle = true;
@@ -76,9 +76,9 @@ function setToggleFalse() {toggle = false};
 
 
 /*this is the div where the box is to be clicked is in, so the player can guess*/
-let guessBox = document.getElementsByClassName('guess_box')[0];
+const guessBox = document.getElementsByClassName('guess_box')[0];
 
-let counter = document.getElementsByClassName('counter')[0];
+const counter = document.getElementsByClassName('counter')[0];
 
 
 
@@ -131,9 +131,9 @@ img8.width = widthCalculation();
 img8.height = heightCalculation();
 
 
-let imagesArray = [img1, img2, img3, img4, img5, img6, img7, img8];
+const imagesArray = [img1, img2, img3, img4, img5, img6, img7, img8];
 /*we need this array two times because every images has to be used two times*/
-let imagesArrayDouble = imagesArray.concat(imagesArray);
+const imagesArrayDouble = imagesArray.concat(imagesArray);
 
 /*function to declare which element will be pulled from imagesArrayDouble*/
 function randomNumber() {
@@ -152,19 +152,20 @@ function randomizeImagesArray() {
 	return imagesRandomArray;
 }
 
-let imagesRandomArray = randomizeImagesArray();
-let hidden = document.getElementsByClassName('hidden')[0];
+const imagesRandomArray = randomizeImagesArray();
+const hidden = document.getElementsByClassName('hidden')[0];
 
 /*the places to click on*/
-let guessBoxes = document.getElementsByClassName('guess_box');
+const guessBoxes = document.getElementsByClassName('guess_box');
 /*to store the name of the image we are trying to compare/find */
 let discoveredImage ='not yet clicked';
 /*to store the first clicked image in*/
 let discoveredImageOject;
+/*this is the last box that has been clicked*/
 let lastBox = 'not set yet';
 
 
- 
+
 /*to be done: make it impossible to click too quickly, or, work with callback*/
 for (i = 0; i <= 15; i++) {
 	let image = imagesRandomArray[i].cloneNode(false);
@@ -174,7 +175,7 @@ for (i = 0; i <= 15; i++) {
 		let checkForCheaters = thisBox.getElementsByClassName('discovered');
 		while (checkForCheaters.length === 1) {return};
 		if (toggle === false) {return;}
-		
+
 		clickCounter++;
 		if (clickCounter%2 === 0) {
 			if (thisBox === lastBox) {clickCounter--; return};
@@ -218,11 +219,11 @@ for (i = 0; i <= 15; i++) {
 				thisBox.appendChild(image);
 				setDiscoveredImage();
 			}
-			
+
 			/*to be able to compare the second clicked image witht he first*/
-		function setDiscoveredImage() {discoveredImage = image.alt;
+			function setDiscoveredImage() {discoveredImage = image.alt;
 			discoveredImageOject = image};
-				}
+			}
 
 		/*show the number of guesses*/
 		counter.textContent = numberOfGuesses + ' moves';
@@ -235,31 +236,31 @@ for (i = 0; i <= 15; i++) {
 			 setMovesAndSecondsHtml();
 			 popUp.style.display = "flex";
 			 setCacheInfo();
-			 }
-		}	
+			}
+		}
 
 
 	)
 }
 
 function widthCalculation() {
-	let width = guessBox.offsetWidth;
+	const width = guessBox.offsetWidth;
 	return width;
 }
 
 function heightCalculation() {
-	let height = guessBox.offsetHeight;
+	const height = guessBox.offsetHeight;
 	return height;
 }
 
-let pauseTimerButton = document.getElementsByClassName('pause')[0];
-function pauseTimer() { 
-		pauseTimerButton.checked = false; 
+const pauseTimerButton = document.getElementsByClassName('pause')[0];
+function pauseTimer() {
+		pauseTimerButton.checked = false;
 		/*when checked is true the timer continues*/
 }
 
 function checkIfGameFinished() {
-	let numberOfCorrectGuesses = getNumberOfCorrectGuesses();
+	const numberOfCorrectGuesses = getNumberOfCorrectGuesses();
 	let gameFinished;
 	if (numberOfCorrectGuesses === 8) {
 		gameFinished = true;
@@ -271,12 +272,12 @@ function checkIfGameFinished() {
 	return gameFinished;
 }
 
-let popUp = document.getElementsByClassName('finished_pop_up')[0];
+const popUp = document.getElementsByClassName('finished_pop_up')[0];
 
 
 function setMovesAndSecondsHtml() {
-	let movesLi = document.getElementsByClassName('finished_moves')[0];
-	let secondsLi = document.getElementsByClassName('finished_seconds')[0];
+	const movesLi = document.getElementsByClassName('finished_moves')[0];
+	const secondsLi = document.getElementsByClassName('finished_seconds')[0];
 	movesLi.textContent = numberOfGuesses + ' moves';
 	secondsLi.textContent = timeCounted + ' seconds';
 }
@@ -329,9 +330,9 @@ if (recordMoves){
 }
 
 function displayRecord() {
-	let spanRecordTime = document.getElementsByClassName('record_time')[0];
-	let spanRecordMoves = document.getElementsByClassName('record_moves')[0];
-	let rowRecord = document.getElementsByClassName('record')[0];
+	const spanRecordTime = document.getElementsByClassName('record_time')[0];
+	const spanRecordMoves = document.getElementsByClassName('record_moves')[0];
+	const rowRecord = document.getElementsByClassName('record')[0];
 	spanRecordTime.textContent = 'Record time: ' + recordTime + ' seconds';
 	spanRecordMoves.textContent = 'Record moves: ' + recordMoves + ' moves';
 	rowRecord.style.display  = 'flex';

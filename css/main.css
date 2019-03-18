@@ -114,31 +114,31 @@ footer {
 }
 
 .finished_pop_up {
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  background-color: #565956;
-  align-content: center;
-  position: fixed;
-  z-index: 2;
-  top: 0;
-  left: 0;
-  display: none;
+	width: 100%; /* Full width */
+	height: 100%; /* Full height */
+	background-color: #565956;
+	align-content: center;
+	position: fixed;
+	z-index: 2;
+	top: 0;
+	left: 0;
+	display: none;
 }
 
 .pop_up_box {
-  width: 290px;
-  height: 190px;
-  border: none;
-  background-color: #428436;
-  margin: auto;
-  width: 300px;
-  height: 300px;
-  color: white;
-  display: block;
+	width: 290px;
+	height: 190px;
+	border: none;
+	background-color: #428436;
+	margin: auto;
+	width: 300px;
+	height: 300px;
+	color: white;
+	display: block;
 }
 
 .congratz {
-  text-align: center;
+	text-align: center;
 }
 
 .start_again {
@@ -151,9 +151,9 @@ footer {
 }
 
 .record {
-	 	justify-content: space-around;
-	 	font-size: 20px;
-    	padding-top: 20px;
-    	color: #e6b800;
-		font-weight: 900;
+ 	justify-content: space-around;
+ 	font-size: 20px;
+	padding-top: 20px;
+	color: #e6b800;
+	font-weight: 900;
 }
